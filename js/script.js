@@ -1,17 +1,9 @@
 //1. Задача на повернення ініціалів для кожного імені з масиву, посортованих в алфавітному порядку:
-const userNamesFIO = ["Петрик Ольга Іванівна", "Гнатюк Петро Антонович", "Рудко Андрій Опанасович"];
+let userNamesFIO = ["Петрик Ольга Іванівна", "Гнатюк Петро Антонович", "Рудко Андрій Опанасович"];
 
-let result = '';
-
-const strArr = userNamesFIO.join(',')
-const upperStrArr = strArr.toUpperCase()
-for (let i = 0; i < strArr.length; i++){
-    if (upperStrArr[i] === strArr[i]){
-        result += strArr[i].split( ' ' ).join('.')
-    }
-}
-
-const initials = result.split(",").sort((a,b)=>a.localeCompare(b)).map((item, index, arr) => arr[index] += '.')
+const initials = userNamesFIO.map(item => {
+    return item.split(' ').map(item => item[0]).join('.') + '.'
+})
 
 console.log(initials)
 
