@@ -1,48 +1,70 @@
-//1. Задача на повернення ініціалів для кожного імені з масиву, посортованих в алфавітному порядку:
-const userNamesFIO = ["Петрик Ольга Іванівна", "Гнатюк Петро Антонович", "Рудко Андрій Опанасович"];
+//Task 1
 
-const initials = userNamesFIO.map(item => {
-    return item.split(' ').map(item => item[0]).join('.') + '.'
-})
-initials.sort((a,b)=> a.localeCompare(b))
-console.log(initials)
-
-//2. Задача на фільтрування масиву. Реалізуйте фільтрування імен які починаються з голосної двома способами:
-// 1) через умовну конструкцію
-// 2) через вбудований метод масивів
-
-let userNames = ['Петро', 'Емма', 'Юстин', 'Ілля', 'Марта', 'Яна', 'Василь', 'Антон', 'Олена'];
-
-// 1) через умовну конструкцію
-let filteredNamesNew = [];
-
-let literalStr = 'а о и е у ї є і у ю я';
-
-for (let i=0; i<userNames.length;i++){
-    if (literalStr.includes(userNames[i][0].toLowerCase())){
-        filteredNamesNew.push(userNames[i])
+const durationBetweenDates = function (startDate = '12 June 2023', endDate = '13 June 2023', type = 'minutes'){
+    const start = Date.parse(startDate)
+    const end = Date.parse(endDate)
+    let result = end - start
+    const typeOfMeasure = {
+        days: Math.floor(result / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((result / 1000 / 60 / 60)),
+        minutes: Math.floor((result / 1000 / 60)),
+        seconds: Math.floor((result / 1000))
+    }
+    for (let key in typeOfMeasure){
+        if (type === key){
+            result = `${typeOfMeasure[key]} ${key}`
+            return result
+        }
     }
 }
-console.log(filteredNamesNew)
-// 2) через вбудований метод масивів
-let literal= ['а', 'о', 'и', 'е', 'ї', 'є', 'і', 'у', 'ю', 'я'];
 
-let filteredNames = userNames.filter(item => {return literal.includes(item[0].toLowerCase())})
-console.log(filteredNames);
+console.log(durationBetweenDates('21 Jul 2023', '22 Jul 2023', 'days'))
 
+// Task 2
 
-// 3. Задача на розворот числа:
-const currentMaxValue = 4589;
+const priceData = {
+    Apples: '23.4',
+    BANANAS: '48',
+    oRAngGEs: '48.7584',
+}
 
-let reverseMaxValue = Number(currentMaxValue.toString().split('').reverse().join(''))
-// reverseMaxValue
-console.log(reverseMaxValue)
-console.log(typeof reverseMaxValue);
+function optimizer(data) {
+    let arrPriceData = Object.entries(data).map(item => [item[0].toLowerCase(), Number(item[1]).toFixed(2)])
+    return Object.fromEntries(arrPriceData)
 
-//Задача на знаходження добутку масиву чисел з невідомою глибиною вкладеності:
-let sum = 1
-const resultsArray = [1, 2, [3, [4]]];
-let productOfArray = 1;
-resultsArray.flat(2).forEach(item => productOfArray *= item)
+}
 
-console.log(productOfArray); // 24
+let updatedPriceData = optimizer(priceData);
+
+console.log(updatedPriceData)
+
+// Task 3
+
+function recursiveOddSumTo(number){
+    let value = 0
+    if (number === 1){
+        return number
+    }
+    if (number % 2 ===1){
+        value = number
+    }
+
+    return  value + recursiveOddSumTo(number - 1)
+
+}
+console.log(recursiveOddSumTo(1))
+console.log(recursiveOddSumTo(10))
+
+//Task 4
+function iterativeOddSumTo(number){
+    let value = 0
+    for (let i = 0; i <= number; i++ ){
+        if (i % 2 === 1){
+            value += i
+        }
+
+    }
+    return value
+}
+console.log(iterativeOddSumTo(1))
+console.log(iterativeOddSumTo(10))
